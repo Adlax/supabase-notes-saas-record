@@ -39,6 +39,7 @@ h1,
 h2,
 h3 {
 	font-family:
+		var(--font-inter),
 		system-ui,
 		-apple-system,
 		BlinkMacSystemFont,
@@ -59,6 +60,7 @@ body {
 	color: var(--text-primary);
 	background: var(--background);
 	font-family:
+		var(--font-roboto-mono),
 		system-ui,
 		-apple-system,
 		BlinkMacSystemFont,
