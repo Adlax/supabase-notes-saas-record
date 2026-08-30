@@ -1,6 +1,7 @@
 "use server";
 
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export async function loginAction(formData: FormData) {
 	try {
@@ -19,7 +20,20 @@ export async function loginAction(formData: FormData) {
 			throw error;
 		}
 	} catch (error) {
-		console.log("Login failed", error);
+		console.error("Login failed", error);
 		throw error;
 	}
+}
+
+export async function logoutAction() {
+	const supabase = await createServerSupabaseClient();
+
+	try {
+		await supabase.auth.signOut();
+	} catch (error) {
+		console.error("Logout failed", error);
+		throw error;
+	}
+
+	redirect("/login");
 }
