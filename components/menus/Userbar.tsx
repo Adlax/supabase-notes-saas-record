@@ -5,15 +5,15 @@ import Link from "next/link";
 
 function Userbar({ user }: { user?: string | null }) {
 	return (
-		<div>
-			<div>
-				<div>
+		<div className="w-full min-h-[80px] bg-[var(--userbar-bg)] flex items-center justify-between px-2">
+			<div className="mx-auto max-w-6xl grow flex flex-col items-center justify-between min-[500px]:flex-row py-4">
+				<div className="relative w-14 h-14 rounded-full overflow-hidden hover:scale-105 transition mb-4 min-[500px]:m-0">
 					<Link href={"/dashboard"}>
 						<Image src={"/logo-2.png"} alt="logo" fill className="object-cover" />
 					</Link>
 				</div>
-				<div>
-					<div>
+				<div className="flex gap-4 flex-col min-[500px]:flex-row">
+					<div className="text-sm text-[var(--primary-50)] flex items-center gap-2">
 						<CircleUserRound />
 						<span>{user}</span>
 					</div>
