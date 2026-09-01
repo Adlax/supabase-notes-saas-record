@@ -1,6 +1,7 @@
 import { logoutAction } from "@/actions/auth";
 import { getCurrentUser } from "@/app/auth/auth";
 import Intro from "@/components/menus/Intro";
+import CreateNoteForm from "@/components/notes/CreateNoteForm";
 import NotesList from "@/components/notes/NotesList";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
@@ -27,6 +28,7 @@ async function DashboardPage() {
 			<Intro />
 			{/* Listener to build/inject session into websocket for realtime */}
 			{/* Creation form */}
+			<CreateNoteForm />
 			{/* Notes Listing  */}
 			<NotesList notes={notes} />
 		</div>
