@@ -1,3 +1,5 @@
+import NoteCard from "./NoteCard";
+
 export type Note = {
 	id: string;
 	title: string;
@@ -12,7 +14,7 @@ function NotesList({ notes }: { notes: Note[] }) {
 			{notes?.length === 0 && <p className="text-gray-500">No notes yet</p>}
 			<div className="flex flex-col gap-y-6">
 				{notes?.map((note) => (
-					<div key={note.id}>{note.title}</div>
+					<NoteCard key={note.id} note={note} />
 				))}
 			</div>
 		</div>
