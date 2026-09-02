@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/app/auth/auth";
+import UpdateNoteForm from "@/components/notes/UpdateNoteForm";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -19,7 +20,7 @@ async function NotePage({ params }: { params: Promise<{ id: string }> }) {
 		<div className="mx-auto max-w-3xl px-1 py-8 sm:px-8">
 			<h1 className="mb-8 text-2xl font-bold">Update the note</h1>
 			<div>No image</div>
-			{/* UpdateNoteForm */}
+			<UpdateNoteForm note={note} />
 		</div>
 	);
 }
