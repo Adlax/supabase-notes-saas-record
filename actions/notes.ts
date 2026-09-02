@@ -64,3 +64,31 @@ export async function updateNoteAction(formData: FormData) {
 		console.log(error);
 	}
 }
+
+export async function deleteNoteAction(formData: FormData) {
+	try {
+		const user = await getCurrentUser();
+
+		if (!user) {
+			throw new Error("User not logged in");
+		}
+
+		const supabase = await createServerSupabaseClient();
+
+		const noteId = formData.get("noteId") as string;
+
+		//File handling
+
+		//Note in db handling
+		const { error: dbError } = await supabase.from("notes").delete().eq("id", noteId).eq("user_id", user.id);
+
+		if (dbError) {
+			throw dbError;
+		}
+
+		revalidatePath("/dashboard");
+	} catch (error) {
+		console.error("Deletion of note failed", error);
+		console.log(error);
+	}
+}
