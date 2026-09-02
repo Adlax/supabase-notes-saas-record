@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Note } from "./NotesList";
+import { deleteNoteAction } from "@/actions/notes";
+import { Trash2 } from "lucide-react";
 
 function NoteCard({ note }: { note: Note }) {
 	return (
@@ -14,6 +16,12 @@ function NoteCard({ note }: { note: Note }) {
 					</div>
 				</Link>
 				{/* Delete */}
+				<form action={deleteNoteAction} className="hover:bg-red-500 p-4 rounded-xl">
+					<input type="hidden" name="noteId" value={note.id} />
+					<button type="submit">
+						<Trash2 />
+					</button>
+				</form>
 			</div>
 		</div>
 	);
