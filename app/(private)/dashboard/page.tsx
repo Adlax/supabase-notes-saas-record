@@ -22,6 +22,21 @@ async function DashboardPage() {
 		throw new Error(error.message);
 	}
 
+	//fetch images
+	const notesWithImages = await Promise.all(
+		(notes ?? []).map(async (note) => {
+			let imageUrl = null;
+			if (note.cover_image_path) {
+				const { data } = await supabase.storage.from("note-covers").createSignedUrl(note.cover_image_path, 3600);
+				imageUrl = data?.signedUrl ?? null;
+			}
+			return {
+				...note,
+				imageUrl,
+			};
+		}),
+	);
+
 	return (
 		<div className="p-8">
 			{/* Dashboard Intro */}
@@ -30,7 +45,7 @@ async function DashboardPage() {
 			{/* Creation form */}
 			<CreateNoteForm />
 			{/* Notes Listing  */}
-			<NotesList notes={notes} />
+			<NotesList notes={notesWithImages} />
 		</div>
 	);
 }
