@@ -11,6 +11,16 @@ function UpdateNoteForm({ note }: { note: Note }) {
 	const [updated, setUpdated] = useState(false);
 	const [preview, setPreview] = useState(note.imageUrl ?? null);
 
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (!file) {
+			setPreview(null);
+			return;
+		}
+		const previewUrl = URL.createObjectURL(file);
+		setPreview(previewUrl);
+	};
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -27,7 +37,7 @@ function UpdateNoteForm({ note }: { note: Note }) {
 			<input type="text" name="title" defaultValue={note.title} className="w-full rounded p-3" />
 			<textarea name="content" id="content" defaultValue={note.content ?? ""} rows={10} className="w-full rounded border p-3"></textarea>
 			<div className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-4 items-center">
-				<input type="file" accept="image/*" name="cover" className="w-full rounded px-4 py-2" />
+				<input type="file" accept="image/*" name="cover" className="w-full rounded px-4 py-2" onChange={handleFileChange} />
 				{preview && (
 					<div className="relative w-20 h-20 overflow-hidden rounded">
 						<Image src={preview} alt="Cover preview" fill className="object-cover" />
