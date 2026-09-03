@@ -122,6 +122,21 @@ export async function deleteNoteAction(formData: FormData) {
 		const noteId = formData.get("noteId") as string;
 
 		//File handling
+		const { data: note, error: fetchError } = await supabase
+			.from("notes")
+			.select("cover_image_path")
+			.eq("id", noteId)
+			.eq("user_id", user.id)
+			.single();
+		if (fetchError) {
+			throw fetchError;
+		}
+		if (note.cover_image_path) {
+			const { error: storageError } = await supabase.storage.from("note-covers").remove([note.cover_image_path]);
+			if (storageError) {
+				throw storageError;
+			}
+		}
 
 		//Note in db handling
 		const { error: dbError } = await supabase.from("notes").delete().eq("id", noteId).eq("user_id", user.id);
