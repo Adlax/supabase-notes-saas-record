@@ -19,11 +19,12 @@ function RealTimeListener() {
 					schema: "public",
 					table: "notes",
 				},
-				() => {
+				(payload) => {
+					console.log("Events: ", payload);
 					router.refresh();
 				},
 			)
-			.subscribe();
+			.subscribe((status) => console.log("Realtime Status:", status));
 		//Cleaner
 		return () => {
 			supabase.removeChannel(channel);
