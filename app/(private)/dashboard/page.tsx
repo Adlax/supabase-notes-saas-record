@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/app/auth/auth";
 import Intro from "@/components/menus/Intro";
 import CreateNoteForm from "@/components/notes/CreateNoteForm";
 import NotesList from "@/components/notes/NotesList";
+import RealTimeListener from "@/components/utils/RealTimeListener";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -42,6 +43,7 @@ async function DashboardPage() {
 			{/* Dashboard Intro */}
 			<Intro />
 			{/* Listener to build/inject session into websocket for realtime */}
+			<RealTimeListener />
 			{/* Creation form */}
 			<CreateNoteForm />
 			{/* Notes Listing  */}
